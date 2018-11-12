@@ -10,7 +10,6 @@ class Hero:
          '''
          pass
 
-
     def add_ability(self, ability):
         ''' Add ability to abilities list '''
         pass
@@ -61,8 +60,38 @@ class Ability:
         '''
         pass
 
-
 if __name__ == "__main__":
+
+    game_is_running = True
+    arena = Arena()
+    arena.build_team_one()
+    arena.build_team_two()
+
+    while game_is_running:
+        arena.team_battle()
+        arena.show_stats()
+
+        play_again = raw_input("Would you want to play again? Y or N: ")
+
+        if play_again.lower() == "n":
+            game_is_running = False
+        else:
+            arena.team_one.revive_heroes()
+            arena.team_two.revive_heroes()
+
     # If you run this file from the terminal
     # this block is executed.
     pass
+
+
+    # TESTS
+       hero = Hero("Wonder Woman")
+    print(hero.attack())
+    ability = Ability("Divine Speed", 300)
+    hero.add_ability(ability)
+    print(hero.attack())
+    new_ability = Ability("Super Human Strength", 800)
+    hero.add_ability(new_ability)
+    print(hero.attack())
+
+    print(__name__)
