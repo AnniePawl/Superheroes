@@ -1,63 +1,43 @@
+# Hero Class
+# Initialize values as instance variables
 class Hero:
     def __init__(self, name, starting_health=100):
-        '''
-        Initialize these values as instance variables:
-        (Some of these values are passed in above, others will need to be set at a starting value.)
-        abilities:List
-        name:
-        starting_health:
-        current_health:
-         '''
-         pass
+         self.name = name
+         self.abilities = list()
+         self.starting_health = starting_health
+         self.current_health = starting_health
 
+    # Add ability to ability list
     def add_ability(self, ability):
-        ''' Add ability to abilities list '''
-        pass
+        self.abilities.append(ability)
 
+    # Calculate damange from abilities
+    # Call Ability.attack() on every ability in self.ability, then return total
     def attack(self):
-        '''
-        Calculates damage from list of abilities.
+        total_damage = 0
+        for ability in self.abilities:
+            total_damage += ability.attack()
+        return total_damage
 
-        This method should call Ability.attack()
-        on every ability in self.abilities and
-        return the total.
-        '''
-        pass
-
+    # Update self.current_health with damage
     def take_damage(self, damage):
-        '''
-        This method should update self.current_health
-        with the damage that is passed in.
-        '''
         pass
 
+    # Return true if hero is alive, return false if dead
     def is_alive(self):
-        '''
-        This function will
-        return true if the hero is alive
-        or false if they are not.
-        '''
         pass
 
+    # Loop to attack opponent until someone dies
     def fight(self, opponent):
-        '''
-        Runs a loop to attack the opponent until someone dies.
-        '''
-        pass
+        while self.is_alive() and opponent.is_alive():
+# Initialize values as instance variables
 
 class Ability:
     def __init__(self, name, max_damage):
-        '''
-        Initialize the values passed into this
-        method as instance variables.
-         '''
         pass
 
+    # Return random attack value between 0 and max_damage
     def attack(self):
-        '''
-        Return a random attack value
-        between 0 and max_damage.
-        '''
         pass
 
 if __name__ == "__main__":
@@ -83,15 +63,14 @@ if __name__ == "__main__":
     # this block is executed.
     pass
 
-
     # TESTS
-       hero = Hero("Wonder Woman")
+    hero = Hero("Wonder Woman")
     print(hero.attack())
     ability = Ability("Divine Speed", 300)
     hero.add_ability(ability)
     print(hero.attack())
     new_ability = Ability("Super Human Strength", 800)
-    hero.add_ability(new_ability)
+     hero.add_ability(new_ability)
     print(hero.attack())
 
-    print(__name__)
+    print (__name__)

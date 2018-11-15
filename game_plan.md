@@ -34,3 +34,7 @@
 * build_team_two
 * team_battle
 * show_stats
+
+### Working with Classes
+Classes are like blueprints for objects that will exist in memory. They describe methods and properties. Be sure to create an instance of class before using it (instantiation).
+**Simple Class Example**
