@@ -8,9 +8,9 @@ class Hero:
          self.abilities = list()
          self.starting_health = starting_health
          self.current_health = starting_health
-         # self.armors = ()
-         # self.deaths = 0
-         # self.kills  = 0
+         self.armors = ()
+         self.deaths = 0
+         self.kills  = 0
 
     # YES
     def add_ability(self, ability):
@@ -24,6 +24,15 @@ class Hero:
     def add_armor(self, armor):
         '''Add armor object to armor list'''
         self.armors.append(armor)
+    # MAYBE
+    def defend(self):
+          total_block = 0
+          if self.current_health == 0:
+            return 0
+          else:
+            for armor in self.armors:
+                total_block += armor.block()
+                return total_block
     # YES
     def attack(self):
         '''Calculate damage from abilities list
@@ -36,6 +45,11 @@ class Hero:
     def take_damage(self, damage):
         '''Update self.current_health with the damage passed in'''
         self.current_health -= damage - self.defend()
+    # YES
+    def add_kill(self, num_kills):
+        '''track number of kills'''
+        self.kills += num_kills
+
     # MAYBE
     def is_alive(self):
          '''Boolean. Return true if hero is alive, false if not'''
@@ -72,7 +86,7 @@ class Weapon(Ability):
         """Return a random value between half-full weapon attack power"""
         return random.randint((self.attack_strength//2), self.attack_strength)
 
-# YES so far
+# YES
 class Team:
     def __init__(self, team_name):
         self.name = team_name
@@ -80,7 +94,7 @@ class Team:
     # YES
     def add_hero(self, hero):
         '''Add Hero object to heroes list'''
-          self.heroes.append(hero)
+        self.heroes.append(hero)
     # MAYBE/IFFY
     def remove_hero(self, name):
         '''Remove hero from heroes list. If Hero isn't found return 0'''
@@ -92,24 +106,47 @@ class Team:
                     self.heroes.remove(hero_obj)
                 else:
                     return 0
+    # Experimenting
+    def attack(self, other_team):
+        '''randomly select living hero from each team, fight until a team has no heroes'''
+        while len(self.alive_heroes()) > 0 and len(other_team.alive_heroes()) > 0:
+            random_hero_1 = random.choice(self.alive_heroes())
+            random_hero_2 = random.choice(other_team.alive_heroes())
+            random_hero_1.fight(random_hero_2)
+    # Maybe
+    def revive_heroes(self, health=100):
+      '''reset hero health'''
+      for hero in self.heroes:
+            Hero.current_health = health
+            return Hero.current_health
+
+    def stats(self):
+        '''prints kill/death ratio for teammates'''
+        for hero in self.heroes:
+            hero.show_stats()
+
+
+
+         # while self.healthCheck() and other_team.healthCheck():
+         #    self.heroes[random.randint(0, len(self.heroes)-1)].fight(other_team.heroes[random.randint(0, len(other_team.heroes)-1)])
     # MAYBE
-     def view_all_heroes(self):
+    def view_all_heroes(self):
         '''Print all heroes to the console.'''
-          for hero in self.heroes:
-              print(hero.name)
+        for hero in self.heroes:
+            print("{}".format(hero.name))
 
 
+# YES
 class Armor:
     def __init__(self, name, max_block):
         '''Instantiate name and defense strength'''
         self.name = name
         self.max_block = max_block
+    # YES
+    def block(self):
+        '''return random value between 0-max_block strength'''
+        return random.randint(0, int(self.max_block))
 
-
-
-
-
-#
 #     game_is_running = True
 #     arena = Arena()
 #     arena.build_team_one()
